@@ -472,3 +472,32 @@ DETAIL:  Failing row contains (13103, ZIKABR18.dbc, 2018, 2, A928, 2018-09-05, 1
 2026-06-10 23:14:47,917 [INFO]   2025: 1,864
 2026-06-10 23:14:47,917 [INFO]   2026: 236
 2026-06-10 23:14:47,917 [INFO] Tudo pronto! Banco disponível para as etapas seguintes.
+2026-06-11 09:23:39,181 [INFO] === ETAPA 1 — Setup do banco Zika SINAN ===
+2026-06-11 09:23:39,232 [INFO] Conexão estabelecida.
+2026-06-11 09:23:39,232 [INFO] Executando schema.sql...
+2026-06-11 09:23:39,298 [INFO] schema.sql concluído.
+2026-06-11 09:23:39,299 [INFO] Lendo CSV (ZIKA_BR_2018_2026_UNIFICADO.csv)...
+2026-06-11 09:23:40,667 [INFO] Total de registros no CSV: 236,398
+2026-06-11 09:23:49,401 [INFO] Carregando em lotes de 5,000...
+2026-06-11 09:30:39,210 [INFO] ==================================================
+2026-06-11 09:30:39,211 [INFO] Carga concluída!
+2026-06-11 09:30:39,211 [INFO]   Inseridos : 236,398
+2026-06-11 09:30:39,211 [INFO]   Erros     : 0
+2026-06-11 09:30:39,211 [INFO]   Total CSV : 236,398
+2026-06-11 09:30:39,212 [INFO] ==================================================
+2026-06-11 09:30:39,573 [INFO] Executando indices.sql...
+2026-06-11 09:30:39,720 [INFO] indices.sql concluído.
+2026-06-11 09:30:39,722 [INFO] Verificando carga...
+2026-06-11 09:30:39,863 [INFO] Total na tabela   : 236,398
+2026-06-11 09:30:39,863 [INFO] Casos confirmados : 28,328
+2026-06-11 09:30:39,864 [INFO] Confirmados por ano:
+2026-06-11 09:30:39,864 [INFO]   2018: 4,399
+2026-06-11 09:30:39,865 [INFO]   2019: 4,307
+2026-06-11 09:30:39,865 [INFO]   2020: 3,382
+2026-06-11 09:30:39,865 [INFO]   2021: 4,498
+2026-06-11 09:30:39,866 [INFO]   2022: 3,526
+2026-06-11 09:30:39,866 [INFO]   2023: 4,043
+2026-06-11 09:30:39,867 [INFO]   2024: 2,073
+2026-06-11 09:30:39,867 [INFO]   2025: 1,864
+2026-06-11 09:30:39,867 [INFO]   2026: 236
+2026-06-11 09:30:39,868 [INFO] Tudo pronto! Banco disponível para as etapas seguintes.

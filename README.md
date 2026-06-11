@@ -14,14 +14,24 @@ Este projeto conecta-se a um banco de dados **PostgreSQL** contendo mais de 236 
 
 ## 🎯 Funcionalidades e Análises
 
-O painel é estruturado no formato de Business Intelligence (BI) e dividido em 6 módulos:
+O painel é estruturado no formato de Business Intelligence (BI) e dividido em 7 módulos:
 
+### 📊 Dashboards
 1. **📈 Visão Executiva:** Evolução clínica, letalidade, KPIs globais e série temporal (curva epidemiológica).
 2. **🗺️ Distribuição Geográfica:** Mapa Choropleth de densidade, Ranking estadual e Heatmap de "Ano vs UF" para acompanhar o deslocamento do vírus.
 3. **👥 Perfil Demográfico:** Análise da população atingida via Pirâmide Etária e cruzamento Étnico-Racial.
 4. **🤰 Vigilância de Gestantes:** Monitoramento avançado focado na proteção contra a Síndrome Congênita do Zika Vírus (Microcefalia).
-5. **⚙️ Qualidade & Auditoria:** Transparência dos dados, exibindo Triggers de auditoria do banco (INSERTs/UPDATEs) e logs de inconsistências clínicas interceptados pelo BD.
-6. **⏳ Monitoramento da Vigilância:** Cálculo do "Atraso da Vigilância" — Tempo médio (em dias) decorrido entre os primeiros sintomas do paciente e a sua notificação no SUS.
+5. **⏳ Monitoramento da Vigilância:** Cálculo do "Atraso da Vigilância" — Tempo médio (em dias) decorrido entre os primeiros sintomas do paciente e a sua notificação no SUS.
+
+### 📊 Análise Avançada
+6. **📊 Análise Estatística Avançada:** Análises estatísticas aprofundadas com modelos de machine learning:
+   - **🌊 Sazonalidade:** Decomposição temporal (STL) para identificar padrões sazonais e tendências
+   - **🔮 Previsão de Casos:** Modelo Prophet para previsão 1-24 meses com intervalo de confiança
+   - **📈 Tendência por UF:** Análise de variação percentual e classificação de risco por estado
+   - **🗺️ Clustering de Municípios:** K-Means para agrupamento de municípios por perfil epidemiológico
+
+### ⚙️ Administração
+7. **⚙️ Qualidade & Auditoria:** Transparência dos dados, exibindo Triggers de auditoria do banco (INSERTs/UPDATEs) e logs de inconsistências clínicas interceptados pelo BD.
 
 ---
 
@@ -339,3 +349,44 @@ streamlit run app.py
 ```
 
 O seu navegador padrão abrirá automaticamente na porta `http://localhost:8501` rodando o painel de forma interativa.
+
+---
+
+## 📊 Novo: Análise Estatística Avançada
+
+A partir da versão 1.1, o dashboard inclui um módulo completo de **Análise Estatística Avançada** com modelos de machine learning e previsão:
+
+### 🌊 Sazonalidade e Decomposição Temporal
+- Identifica padrões sazonais repetitivos
+- Decomposição STL (Seasonal and Trend)
+- Análise de amplitude sazonal e força de tendência
+- Requisito: Mínimo 24 dias de dados
+
+### 🔮 Previsão de Casos (Prophet)
+- Modelo Facebook Prophet para previsão de 1-24 meses
+- Intervalo de confiança automático (95%)
+- Sazonalidade semanal e anual
+- Requer: Mínimo 10 dias de dados históricos
+
+### 📈 Análise de Tendência por UF
+- Cálculo de variação percentual últimos 30 dias
+- Média móvel de 7 dias
+- Classificação automática de risco (crescente/estável/decrescente)
+- Visualizações comparativas por estado
+
+### 🗺️ Agrupamento de Municípios (K-Means)
+- Clustering automático de 2-10 grupos
+- Baseado em características epidemiológicas (incidência, gestantes)
+- Classificação de risco por cluster
+- Visualização 2D com PCA e gráficos de perfil
+
+### 🔧 Novos Pacotes Instalados
+```bash
+pip install prophet>=1.1.5 scikit-learn>=1.3.0 scipy>=1.10.0 statsmodels>=0.14.0
+```
+
+Para mais detalhes, veja:
+- 📖 [Documentação Completa](./ANALISE_ESTATISTICA_DOCS.md)
+- 📋 [Guia de Instalação](./GUIA_INSTALACAO.md)
+- 🚀 [Resumo Técnico](./IMPLEMENTACAO_SUMARIO.md)
+- ✅ [Checklist](./CHECKLIST_IMPLEMENTACAO.md)

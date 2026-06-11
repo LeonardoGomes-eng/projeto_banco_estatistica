@@ -29,6 +29,9 @@ pages = {
         st.Page("pages/04_Gestantes.py", title="Vigilância de Gestantes", icon="🤰"),
         st.Page("pages/06_Monitoramento_Vigilancia.py", title="Monitoramento da Vigilância", icon="⏳"),
     ],
+    "Análise Avançada": [
+        st.Page("pages/07_Analise_Estatistica.py", title="Análise Estatística Avançada", icon="📊"),
+    ],
     "Administração": [
         st.Page("pages/05_Qualidade_Auditoria.py", title="Qualidade & Auditoria", icon="⚙️"),
     ]

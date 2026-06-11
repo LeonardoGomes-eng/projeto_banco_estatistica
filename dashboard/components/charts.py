@@ -5,34 +5,61 @@ from config.theme import COLORS
 
 def plot_curva_epidemiologica(df: pd.DataFrame):
     """
-    Gera a curva epidemiológica (série temporal anual).
-    Espera as colunas: ano, total_casos_confirmados
+    Gera a curva epidemiológica (série temporal semanal).
+    Espera as colunas: ano, semana_epidemiologica, total_casos_confirmados
     """
     if df.empty or 'ano' not in df.columns:
         return go.Figure()
-        
-    # Agrupa apenas por ano, pois a semana está nula na maioria dos registros
-    df_agg = df.groupby('ano')['total_casos_confirmados'].sum().reset_index()
-    
-    # Ordena cronologicamente
-    df_agg = df_agg.sort_values(by='ano')
-    
-    fig = px.line(
-        df_agg, 
-        x='ano', 
-        y='total_casos_confirmados',
-        title="Curva Epidemiológica do Zika Vírus (Casos Confirmados)",
-        labels={'ano': 'Ano de Notificação', 'total_casos_confirmados': 'Total Casos Confirmados'},
-        markers=True
-    )
-    
-    fig.update_xaxes(type='category')
-    fig.update_traces(line=dict(color=COLORS['primary'], width=3), marker=dict(size=8))
-    fig.update_layout(
-        hovermode="x unified",
-        xaxis_tickangle=0,
-        margin=dict(l=20, r=20, t=50, b=20)
-    )
+
+    col_semana = 'semana_epidemiologica' if 'semana_epidemiologica' in df.columns else None
+
+    if col_semana:
+        # Agrupa por ano + semana epidemiológica
+        df_agg = df.groupby(['ano', col_semana])['total_casos_confirmados'].sum().reset_index()
+        df_agg = df_agg.sort_values(by=['ano', col_semana])
+
+        # Cria rótulo legível: "2018-S01"
+        df_agg['periodo'] = df_agg['ano'].astype(str) + '-S' + df_agg[col_semana].astype(str).str.zfill(2)
+
+        fig = px.line(
+            df_agg,
+            x='periodo',
+            y='total_casos_confirmados',
+            title="Curva Epidemiológica do Zika Vírus (Semanal)",
+            labels={'periodo': 'Semana Epidemiológica', 'total_casos_confirmados': 'Casos Confirmados'},
+        )
+
+        fig.update_traces(line=dict(color=COLORS['primary'], width=2))
+        fig.update_layout(
+            hovermode="x unified",
+            xaxis_tickangle=-45,
+            xaxis=dict(
+                dtick=max(1, len(df_agg) // 20),  # mostra ~20 ticks no eixo
+                tickfont=dict(size=9),
+            ),
+            margin=dict(l=20, r=20, t=50, b=60)
+        )
+    else:
+        # Fallback: agrupa por ano se não houver coluna de semana
+        df_agg = df.groupby('ano')['total_casos_confirmados'].sum().reset_index()
+        df_agg = df_agg.sort_values(by='ano')
+
+        fig = px.line(
+            df_agg,
+            x='ano',
+            y='total_casos_confirmados',
+            title="Curva Epidemiológica do Zika Vírus (Casos Confirmados)",
+            labels={'ano': 'Ano de Notificação', 'total_casos_confirmados': 'Total Casos Confirmados'},
+            markers=True
+        )
+
+        fig.update_xaxes(type='category')
+        fig.update_traces(line=dict(color=COLORS['primary'], width=3), marker=dict(size=8))
+        fig.update_layout(
+            hovermode="x unified",
+            xaxis_tickangle=0,
+            margin=dict(l=20, r=20, t=50, b=20)
+        )
     return fig
 
 def plot_piramide_etaria(df: pd.DataFrame):

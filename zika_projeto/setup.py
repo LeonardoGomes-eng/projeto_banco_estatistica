@@ -98,6 +98,16 @@ def _smallint(v):
         return None
     return n if -32768 <= n <= 32767 else None
 
+def _semana_epidem(v):
+    """Converte YYYYWW para YYWW para caber no SMALLINT."""
+    n = _inteiro(v)
+    if n is None:
+        return None
+    s = str(n)
+    if len(s) == 6:
+        n = int(s[2:])
+    return n if -32768 <= n <= 32767 else None
+
 def _uf(v):
     c = _inteiro(v)
     return c if c in UFS_VALIDAS else None
@@ -131,10 +141,10 @@ MAPEAMENTO = [
     ("tp_not",         "tp_not",           _smallint),
     ("id_agravo",      "id_agravo",        _texto),
     ("dt_notific",     "dt_notific",       _data),
-    ("sem_not",        "sem_not",          _smallint),
+    ("sem_not",        "sem_not",          _semana_epidem),
     ("nu_ano",         "nu_ano",           _smallint),
     ("dt_sin_pri",     "dt_sin_pri",       _data),
-    ("sem_pri",        "sem_pri",          _smallint),
+    ("sem_pri",        "sem_pri",          _semana_epidem),
     ("sg_uf_not",      "sg_uf_not",        _uf),
     ("id_municip",     "id_municip",       _inteiro),
     ("id_regiona",     "id_regiona",       _inteiro),

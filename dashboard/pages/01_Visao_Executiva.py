@@ -42,4 +42,4 @@ else:
     st.warning("Falha ao carregar dados da curva epidemiológica.")
     
 st.markdown("---")
-st.info("💡 **Dica Analítica:** A Curva Epidemiológica mostra a série temporal de casos. O Desfecho Clínico mostra se o sistema de saúde conseguiu confirmar a Cura ou se houve Óbito/Dados em Branco.")
+st.info("💡 **Dica Analítica:** A Curva Epidemiológica mostra a série temporal **semanal** de casos confirmados. O Desfecho Clínico mostra se o sistema de saúde conseguiu confirmar a Cura ou se houve Óbito/Dados em Branco.")
